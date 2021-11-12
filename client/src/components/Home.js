@@ -11,21 +11,16 @@ function Home(props) {
     fetch("/api/main-chat")
       .then((res) => res.json())
       .then((homeData) => {
-        let temp = homeData.map((item) => {
+        let chatLog = homeData.map((item) => {
           return (
             <li>
               {item.username}: {item.message}
             </li>
           );
         });
-        setMessage(temp);
+        setMessage(chatLog);
       });
   }, []);
-
-  function clickHandle(event) {
-    event.preventDefault();
-    setMessage(`hello`);
-  }
 
   //Returns chat room page
   return (
@@ -73,12 +68,7 @@ function Home(props) {
           </div>
         </form>
         <form method="get" action="api/main-chat">
-          <input
-            name="button"
-            type="button"
-            value="Refresh"
-            onClick={clickHandle}
-          />
+          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>
