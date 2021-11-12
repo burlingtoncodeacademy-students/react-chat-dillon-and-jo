@@ -15,26 +15,26 @@ function Home(props) {
     fetch("/api/main-chat")
       .then((res) => res.json())
       .then((homeData) => {
-        homeData.forEach((doc) => {
-          setUserName(doc.username);
-          setMessage(doc.message);
+        let chatLog = homeData.map((item) => {
+          return (
+            <li>
+              {item.username}: {item.message}
+            </li>
+          );
         });
+        setMessage(chatLog);
       });
   }, []);
 
-  //Returns chat room page
+//Returns chat room page
   return (
     <div>
       <h1 className="greeting">Welcome to React Chat!</h1>
       <div className="room-wrapper">
         <div className="main-room">
           <h2>Main Room</h2>
-          {/* Eventually pushed up chats will go into the li tags */}
-          <ul>
-            <li>
-              {username} : {message}
-            </li>
-          </ul>
+          {/* Eventually pushed up chats will go into the p tag (maybe append li instead?)*/}
+          <p name="chat">{message}</p>
         </div>
         <div className="all-rooms">
           <h2>All Rooms</h2>
@@ -54,23 +54,31 @@ function Home(props) {
       </div>
       {/* Form for user name and message inputs */}
       <div className="form-container">
-        <form action="/main-chat" method="post">
+        <form method="post" action="/main-chat">
           <div className="inputs-wrapper">
             <input
+              name="username"
               type="text"
               name="username"
               placeholder="Enter username"
               className="username-field"
             />
             <textarea
+              name="message"
               type="text"
               name="message"
               placeholder="Enter message"
               className="message-field"
             />
-            {/* Send button linked to server */}
             <input type="submit" value="Send" className="button" />
           </div>
+        </form>
+        <form method="get" action="api/main-chat">
+          <input
+            name="button"
+            type="button"
+            value="Refresh"
+          />
         </form>
       </div>
     </div>
