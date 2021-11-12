@@ -26,7 +26,7 @@ function DogRoom(props) {
             <h3>Cat Room</h3>
           </Link>
           {/* Link redirects to Bird Room page */}
-          <Link to="/cat-room" add style={{ textDecoration: "none" }}>
+          <Link to="/bird-room" add style={{ textDecoration: "none" }}>
             <h3>Bird Room</h3>
           </Link>
         </div>

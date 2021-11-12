@@ -1,12 +1,16 @@
 //Imports Link from react-router-dom to allow for links in component
 import { Link } from "react-router-dom";
+//Imports useEffect and useState to be used in component
 import { useState, useEffect } from "react";
 
 //Function for home page
 function Home(props) {
+  //Sets the chat username
   const [username, setUserName] = useState("");
+  //Sets the chat message
   const [message, setMessage] = useState("");
 
+  //useEffect hook to pull in info from the database (json?)
   useEffect(() => {
     fetch("/api/main-chat")
       .then((res) => res.json())
@@ -22,7 +26,11 @@ function Home(props) {
       });
   }, []);
 
+<<<<<<< HEAD
   //Returns chat room page
+=======
+//Returns chat room page
+>>>>>>> 4f761b56e419c77e815b1bcd1a1ecac525f036cb
   return (
     <div>
       <h1 className="greeting">Welcome to React Chat!</h1>
@@ -55,12 +63,14 @@ function Home(props) {
             <input
               name="username"
               type="text"
+              name="username"
               placeholder="Enter username"
               className="username-field"
             />
             <textarea
               name="message"
               type="text"
+              name="message"
               placeholder="Enter message"
               className="message-field"
             />
@@ -68,7 +78,11 @@ function Home(props) {
           </div>
         </form>
         <form method="get" action="api/main-chat">
-          <input name="button" type="button" value="Refresh" />
+          <input
+            name="button"
+            type="button"
+            value="Refresh"
+          />
         </form>
       </div>
     </div>
