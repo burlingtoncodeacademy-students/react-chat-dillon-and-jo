@@ -78,9 +78,13 @@ app.get("/api/cat-chat", async (req, res) => {
 app.post("/dog-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
-  let newDogChat = new DogChat(userObj);
-  await newDogChat.save();
-  res.redirect("/dog-room");
+  if (userObj.username === `` || userObj.message === ``) {
+    res.status(403).redirect("/dog-room");
+  } else {
+    let newDogChat = new DogChat(userObj);
+    await newDogChat.save();
+    res.redirect("/dog-room");
+  }
 });
 
 //READ - grabs the dog room chats and posts them on the dog room page
@@ -104,29 +108,42 @@ app.get("/api/main-chat", async (req, res) => {
   res.send(allChats);
 });
 
+//Function for time stamp - gets hour:min and date of posted chats in real time
 function timeStamp() {
+  //Grabs the current date
   let date = new Date();
-  let time = [date.getHours(), date.getMinutes()];
-  let hour = time[0];
+  //Sets hour variable to get hour in real time
+  let hour = date.getHours();
+  //Sets variable for the am and pm
   let amPM;
-  let timeStamp;
+  //If the hour is greater than 12 (i.e. Noon)
   if (hour > 12) {
+    //Subtract 12 to do away with military time
     hour = `${hour - 12}`;
+    //And puts PM on time stamp to denote it is after Noon
     amPM = `PM`;
+    //If the hour equals noon exactly
   } else if (hour === 12) {
+    //Set the am pm variable to PM
     amPM = `PM`;
   } else {
+    //Otherwise set the hour as is to AM
     amPM = `AM`;
   }
-  let minute = time[1];
+  //Sets minute variable in real time
+  let minute = date.getMinutes();
+  //If the minute is less than 10
   if (minute < 10) {
+    //Have the minute with a 0 in front (i.e. :06)
     minute = `0${minute}`;
   }
-  time = `${hour}:${minute}${amPM}`;
-
+  //Assigns time variable to hour, minute, and AM or PM
+  let time = `${hour}:${minute}${amPM}`;
+  //Assigns the stamp variable to the month, day, and year in real time
   let stamp = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
-  timeStamp = `(${time} ${stamp})`;
-
+  //Posts to the page and hour, minutes, and date in real time
+  let timeStamp = `(${time} ${stamp})`;
+  //Returns the timeStamp to be used by function
   return timeStamp;
 }
 

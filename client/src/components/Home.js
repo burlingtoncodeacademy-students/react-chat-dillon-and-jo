@@ -10,6 +10,17 @@ function Home(props) {
   //Sets interval counter state
   const [intervalUpdater, setIntervalUpdater] = useState(0);
 
+  // function chatRefresher(num) {
+  //   let intervalId = setInterval(tick, 10000)
+
+  //   function tick() {
+  //     num = num - 1
+  //     if (num <= 0) {
+  //     setIntervalUpdater(1)
+  //     clearInterval
+  //     }
+  //   }
+  // }
   //Set interval to poll to refresh chats every 10 seconds
   setInterval(() => {
     //set update to start counting here
@@ -17,8 +28,11 @@ function Home(props) {
 
   //useEffect hook to pull in info from the database
   useEffect(() => {
+    //Fetches the posted chat from the server
     fetch("/api/main-chat")
+    //Takes the response and turns it into JSON
       .then((res) => res.json())
+      //Then takes the data
       .then((homeData) => {
         let chatLog = homeData.map((item) => {
           return (
