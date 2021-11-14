@@ -48,9 +48,13 @@ const BirdChat = mongoose.model("BirdChat", chatSchema);
 app.post("/bird-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
-  let newBirdChat = new BirdChat(userObj);
-  await newBirdChat.save();
-  res.redirect("/bird-room");
+  if (userObj.username === `` || userObj.message === ``) {
+    res.status(403).redirect("/bird-room");
+  } else {
+    let newDogChat = new BirdChat(userObj);
+    await newDogChat.save();
+    res.redirect("/bird-room");
+  }
 });
 
 //READ - grabs the bird room chats and posts them on the bird room page
@@ -63,9 +67,13 @@ app.get("/api/bird-chat", async (req, res) => {
 app.post("/cat-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
-  let newCatChat = new CatChat(userObj);
-  await newCatChat.save();
-  res.redirect("/cat-room");
+  if (userObj.username === `` || userObj.message === ``) {
+    res.status(403).redirect("/cat-room");
+  } else {
+    let newDogChat = new CatChat(userObj);
+    await newDogChat.save();
+    res.redirect("/cat-room");
+  }
 });
 
 //READ - grabs the cat room chats and posts them on the cat room page
@@ -97,9 +105,16 @@ app.get("/api/dog-chat", async (req, res) => {
 app.post("/main-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
-  let newChat = new Chat(userObj);
-  await newChat.save();
-  res.redirect("/");
+  if (userObj.message.length > 500) {
+    res.status(403).redirect("/");
+  }
+  if (userObj.username === `` || userObj.message === ``) {
+    res.status(403).redirect("/");
+  } else {
+    let newDogChat = new Chat(userObj);
+    await newDogChat.save();
+    res.redirect("/");
+  }
 });
 
 //READ - grabs the main chat room chats and posts them on the main page
@@ -111,10 +126,15 @@ app.get("/api/main-chat", async (req, res) => {
 //sets a 10 second timeout on the chat
 setTimeout(() => {}, 10000);
 
+//timestamp function
 function timeStamp() {
+  //creates new Date object at time
   let date = new Date();
+  //gets Hour item from Date object
   let hour = date.getHours();
+  //initiates AM/PM variable
   let amPM;
+  //changes 24 hour time into 12 hour time, sets AM/PM accordingly
   if (hour > 12) {
     hour = `${hour - 12}`;
     amPM = `PM`;
@@ -123,15 +143,19 @@ function timeStamp() {
   } else {
     amPM = `AM`;
   }
+  //get Minute item from Date object
   let minute = date.getMinutes();
+  //handles '00'-'09' times
   if (minute < 10) {
     minute = `0${minute}`;
   }
+  //sets clock
   let time = `${hour}:${minute}${amPM}`;
-
+  //sets mm/dd/yyyy
   let stamp = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
+  //sets full timestamp
   let timeStamp = `(${time} ${stamp})`;
-
+  //sends timestamp
   return timeStamp;
 }
 
