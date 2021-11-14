@@ -31,7 +31,7 @@ const DogChat = mongoose.model("DogChat", chatSchema);
 
 //CREATE - send messages on the home route to the chat box
 app.post("/main-chat", async (req, res) => {
-  let userObj = req.body
+  let userObj = req.body;
   let newChat = new Chat(userObj);
   await newChat.save();
   res.redirect("/");
@@ -39,39 +39,27 @@ app.post("/main-chat", async (req, res) => {
 
 //READ - gets the messages for main chat room and displays them
 app.get("/api/main-chat", async (req, res) => {
-  let allChats = await Chat.find({})
-  res.send(allChats)
-})
+  let allChats = await Chat.find({});
+  res.send(allChats);
+});
 
 //sets a 10 second timeout on the chat
-setTimeout(() => {
-  
-}, 10000);
+setTimeout(() => {}, 10000);
 
 //CREATE - dog room chats
 app.post("/dog-chat", async (req, res) => {
-  let userObj = req.body
-  let newDogChat = new DogChat (userObj);
+  let userObj = req.body;
+  let newDogChat = new DogChat(userObj);
   await newDogChat.save();
   res.redirect("/dog-room");
 });
 
 //READ - grabs the dog room chats and posts them on the dog room page
 app.get("/api/dog-chat", async (req, res) => {
-  let dogChats = await DogChat.find({})
-  res.send(dogChats)
-})
-
-
-
-
-app.get("/dog-room", (req, res) => {});
-
-app.get("/cat-room", (req, res) => {});
-
-app.get("/bird-room", (req, res) => {});
-
-
+  let dogChats = await DogChat.find({});
+  res.send(dogChats);
+});
 
 app.listen(port, () => {
-  console.log("listening on port: " + port)});
+  console.log("listening on port: " + port);
+});

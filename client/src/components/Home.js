@@ -26,11 +26,7 @@ function Home(props) {
       });
   }, []);
 
-<<<<<<< HEAD
   //Returns chat room page
-=======
-//Returns chat room page
->>>>>>> 4f761b56e419c77e815b1bcd1a1ecac525f036cb
   return (
     <div>
       <h1 className="greeting">Welcome to React Chat!</h1>
@@ -78,11 +74,7 @@ function Home(props) {
           </div>
         </form>
         <form method="get" action="api/main-chat">
-          <input
-            name="button"
-            type="button"
-            value="Refresh"
-          />
+          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>
