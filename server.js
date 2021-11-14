@@ -79,9 +79,7 @@ app.post("/dog-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
   if (userObj.username === `` || userObj.message === ``) {
-    popup.alert({
-      content: `Please enter a username and a message.`,
-    });
+    res.status(403).redirect("/dog-room");
   } else {
     let newDogChat = new DogChat(userObj);
     await newDogChat.save();
