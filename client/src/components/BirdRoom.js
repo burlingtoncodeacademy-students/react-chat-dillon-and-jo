@@ -10,16 +10,22 @@ function BirdRoom(props) {
 
   //useEffect hook to pull in info from the database
   useEffect(() => {
+    //Fetches the posted chat from the server
     fetch("/api/bird-chat")
+    //Takes the response and turns it into JSON
       .then((res) => res.json())
+      //Then takes the data
       .then((birdData) => {
+        //Maps over the data and stores it in a variable
         let chatLog = birdData.map((item) => {
+          //Returns an li with username, message, and time stamp
           return (
             <li>
               {item.username}: {item.message} {item.timestamp}
             </li>
           );
         });
+        //Sets the chatLog message variable from state
         setMessage(chatLog);
       });
   }, []);

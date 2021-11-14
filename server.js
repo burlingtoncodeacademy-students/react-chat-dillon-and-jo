@@ -48,9 +48,17 @@ const BirdChat = mongoose.model("BirdChat", chatSchema);
 app.post("/bird-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
-  let newBirdChat = new BirdChat(userObj);
-  await newBirdChat.save();
-  res.redirect("/bird-room");
+  //catches messages over 500 characters
+  if (userObj.message.length > 500) {
+    res.status(403).redirect("/bird-room");
+  }
+  if (userObj.username === `` || userObj.message === ``) {
+    res.status(403).redirect("/bird-room");
+  } else {
+    let newDogChat = new BirdChat(userObj);
+    await newDogChat.save();
+    res.redirect("/bird-room");
+  }
 });
 
 //READ - grabs the bird room chats and posts them on the bird room page
@@ -63,9 +71,18 @@ app.get("/api/bird-chat", async (req, res) => {
 app.post("/cat-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
-  let newCatChat = new CatChat(userObj);
-  await newCatChat.save();
-  res.redirect("/cat-room");
+  //catches messages over 500 characters
+  if (userObj.message.length > 500) {
+    res.status(403).redirect("/cat-room");
+  }
+
+  if (userObj.username === `` || userObj.message === ``) {
+    res.status(403).redirect("/cat-room");
+  } else {
+    let newDogChat = new CatChat(userObj);
+    await newDogChat.save();
+    res.redirect("/cat-room");
+  }
 });
 
 //READ - grabs the cat room chats and posts them on the cat room page
@@ -78,6 +95,10 @@ app.get("/api/cat-chat", async (req, res) => {
 app.post("/dog-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
+  //catches messages over 500 characters
+  if (userObj.message.length > 500) {
+    res.status(403).redirect("/dog-room");
+  }
   if (userObj.username === `` || userObj.message === ``) {
     res.status(403).redirect("/dog-room");
   } else {
@@ -97,9 +118,18 @@ app.get("/api/dog-chat", async (req, res) => {
 app.post("/main-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
-  let newChat = new Chat(userObj);
-  await newChat.save();
-  res.redirect("/");
+  //catches messages over 500 characters
+  if (userObj.message.length > 500) {
+    res.status(403).redirect("/");
+  }
+  //catches empty username/message blocks
+  if (userObj.username === `` || userObj.message === ``) {
+    res.status(403).redirect("/");
+  } else {
+    let newDogChat = new Chat(userObj);
+    await newDogChat.save();
+    res.redirect("/");
+  }
 });
 
 //READ - grabs the main chat room chats and posts them on the main page
@@ -108,15 +138,18 @@ app.get("/api/main-chat", async (req, res) => {
   res.send(allChats);
 });
 
-//Function for time stamp - gets hour:min and date of posted chats in real time
+//sets a 10 second timeout on the chat
+setTimeout(() => {}, 10000);
+
+//timestamp function
 function timeStamp() {
-  //Grabs the current date
+  //creates new Date object at time
   let date = new Date();
-  //Sets hour variable to get hour in real time
+  //gets Hour item from Date object
   let hour = date.getHours();
-  //Sets variable for the am and pm
+  //initiates AM/PM variable
   let amPM;
-  //If the hour is greater than 12 (i.e. Noon)
+  //changes 24 hour time into 12 hour time, sets AM/PM accordingly
   if (hour > 12) {
     //Subtract 12 to do away with military time
     hour = `${hour - 12}`;
@@ -130,20 +163,20 @@ function timeStamp() {
     //Otherwise set the hour as is to AM
     amPM = `AM`;
   }
-  //Sets minute variable in real time
+  //get Minute item from Date object
   let minute = date.getMinutes();
-  //If the minute is less than 10
+  //handles '00'-'09' times
   if (minute < 10) {
     //Have the minute with a 0 in front (i.e. :06)
     minute = `0${minute}`;
   }
-  //Assigns time variable to hour, minute, and AM or PM
+  //sets clock
   let time = `${hour}:${minute}${amPM}`;
-  //Assigns the stamp variable to the month, day, and year in real time
+  //sets mm/dd/yyyy
   let stamp = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
-  //Posts to the page and hour, minutes, and date in real time
+  //sets full timestamp
   let timeStamp = `(${time} ${stamp})`;
-  //Returns the timeStamp to be used by function
+  //sends timestamp
   return timeStamp;
 }
 
