@@ -48,6 +48,10 @@ const BirdChat = mongoose.model("BirdChat", chatSchema);
 app.post("/bird-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
+  //catches messages over 500 characters
+  if (userObj.message.length > 500) {
+    res.status(403).redirect("/bird-room");
+  }
   if (userObj.username === `` || userObj.message === ``) {
     res.status(403).redirect("/bird-room");
   } else {
@@ -67,6 +71,11 @@ app.get("/api/bird-chat", async (req, res) => {
 app.post("/cat-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
+  //catches messages over 500 characters
+  if (userObj.message.length > 500) {
+    res.status(403).redirect("/cat-room");
+  }
+
   if (userObj.username === `` || userObj.message === ``) {
     res.status(403).redirect("/cat-room");
   } else {
@@ -86,6 +95,10 @@ app.get("/api/cat-chat", async (req, res) => {
 app.post("/dog-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
+  //catches messages over 500 characters
+  if (userObj.message.length > 500) {
+    res.status(403).redirect("/dog-room");
+  }
   if (userObj.username === `` || userObj.message === ``) {
     res.status(403).redirect("/dog-room");
   } else {
@@ -105,9 +118,11 @@ app.get("/api/dog-chat", async (req, res) => {
 app.post("/main-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
+  //catches messages over 500 characters
   if (userObj.message.length > 500) {
     res.status(403).redirect("/");
   }
+  //catches empty username/message blocks
   if (userObj.username === `` || userObj.message === ``) {
     res.status(403).redirect("/");
   } else {
