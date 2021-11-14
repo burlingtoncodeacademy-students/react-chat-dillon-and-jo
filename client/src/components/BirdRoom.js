@@ -1,21 +1,42 @@
 //Imports Link from react-router-dom to allow for links in component
 import { Link } from "react-router-dom";
+//Imports useEffect and useState to be used in component
+import { useState, useEffect } from "react";
 
 //Function for bird room chat page
 function BirdRoom(props) {
+  //Sets the chat message
+  const [message, setMessage] = useState("");
+
+  //useEffect hook to pull in info from the database
+  useEffect(() => {
+    fetch("/api/bird-chat")
+      .then((res) => res.json())
+      .then((birdData) => {
+        let chatLog = birdData.map((item) => {
+          return (
+            <li>
+              {item.username}: {item.message}
+            </li>
+          );
+        });
+        setMessage(chatLog);
+      });
+  }, []);
+
   //Returns chat room page
   return (
     <div>
       <h1 className="greeting">Caw-caw! Welcome to the Bird Chat Room!</h1>
       <div className="room-wrapper">
         <div className="main-room">
+          {/* Section where posted chats live */}
           <h2>Bird 🦜 Room</h2>
-          {/* Eventually pushed up chats will go into the p tag (maybe append li instead?)*/}
-          <p>Chats will go here</p>
-          <p>Chats will go here</p>
-          <p>Chats will go here</p>
+          {/* Posted chats will go into the p tag */}
+          <p name="chat">{message}</p>
         </div>
         <div className="all-rooms">
+          {/* Links to the other chat rooms */}
           <h2>All Rooms</h2>
           {/* Link redirects to Main Room page */}
           <Link to="/" add style={{ textDecoration: "none" }}>
@@ -33,22 +54,29 @@ function BirdRoom(props) {
       </div>
       {/* Form for user name and message inputs */}
       <div className="form-container">
-        <form method="post">
+        <form action="/bird-chat" method="post">
           <div className="inputs-wrapper">
+            {/* Username input */}
             <input
               type="text"
               placeholder="Enter username"
+              name="username"
               className="username-field"
             />
+            {/* Message input */}
             <textarea
               type="text"
               placeholder="Enter message"
+              name="message"
               className="message-field"
             />
+            {/* Submit input (submits the username + message) */}
+            <input type="submit" value="Send" className="button" />
           </div>
-          {/* Send and refresh buttons linked to server */}
-          <input type="submit" value="Send" className="button" />
-          <input type="submit" value="Refresh" className="button" />
+        </form>
+        {/* Refresh button, refreshes the chat */}
+        <form method="get" action="api/bird-chat">
+          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>

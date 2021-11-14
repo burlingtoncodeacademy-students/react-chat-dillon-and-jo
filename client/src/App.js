@@ -37,4 +37,5 @@ function App() {
   );
 }
 
+//Exports App to index.js file
 export default App;
