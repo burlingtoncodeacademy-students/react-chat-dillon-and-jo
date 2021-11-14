@@ -12,7 +12,7 @@ function BirdRoom(props) {
   useEffect(() => {
     //Fetches the posted chat from the server
     fetch("/api/bird-chat")
-    //Takes the response and turns it into JSON
+      //Takes the response and turns it into JSON
       .then((res) => res.json())
       //Then takes the data
       .then((birdData) => {
@@ -31,15 +31,16 @@ function BirdRoom(props) {
       });
   }, []);
 
+  //refresh function
   function refreshChat() {
+    //begins interval to refresh page every 10 seconds
     setInterval(tick, 10000);
-
+    //tick function to send fetch request
     function tick() {
-      console.log(`refreshing chat`);
       fetch("/api/main-chat")
         .then((res) => res.json())
-        .then((homeData) => {
-          let chatLog = homeData.map((item) => {
+        .then((birdData) => {
+          let chatLog = birdData.map((item) => {
             return (
               <li>
                 {item.username}: {item.message} {item.timestamp}

@@ -12,7 +12,7 @@ function Home(props) {
   useEffect(() => {
     //Fetches the posted chat from the server
     fetch("/api/main-chat")
-    //Takes the response and turns it into JSON
+      //Takes the response and turns it into JSON
       .then((res) => res.json())
       //Then takes the data
       .then((homeData) => {
@@ -34,11 +34,10 @@ function Home(props) {
 
   //refresh function
   function refreshChat() {
+    //begins interval to refresh page every 10 seconds
     setInterval(tick, 10000);
-
+    //tick function to send fetch request
     function tick() {
-      console.log(`refreshing chat`);
-      //re-runs fetch to refresh chatbox
       fetch("/api/main-chat")
         .then((res) => res.json())
         .then((homeData) => {

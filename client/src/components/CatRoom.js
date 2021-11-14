@@ -12,13 +12,13 @@ function CatRoom(props) {
   useEffect(() => {
     //Fetches the posted chat from the server
     fetch("/api/cat-chat")
-    //Takes the response and turns it into JSON
+      //Takes the response and turns it into JSON
       .then((res) => res.json())
       //Then takes the data
       .then((catData) => {
         //Maps over the data and stores it in a variable
         let chatLog = catData.map((item) => {
-           //Returns an li with username, message, and time stamp
+          //Returns an li with username, message, and time stamp
           return (
             <li>
               {item.username}: {item.message} {item.timestamp}
@@ -31,15 +31,16 @@ function CatRoom(props) {
       });
   }, []);
 
+  //refresh function
   function refreshChat() {
+    //begins interval to refresh page every 10 seconds
     setInterval(tick, 10000);
-
+    //tick function to send fetch request
     function tick() {
-      console.log(`refreshing chat`);
       fetch("/api/main-chat")
         .then((res) => res.json())
-        .then((homeData) => {
-          let chatLog = homeData.map((item) => {
+        .then((catData) => {
+          let chatLog = catData.map((item) => {
             return (
               <li>
                 {item.username}: {item.message} {item.timestamp}
