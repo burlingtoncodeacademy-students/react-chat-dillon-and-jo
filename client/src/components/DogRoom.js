@@ -10,7 +10,7 @@ function DogRoom(props) {
   //Sets the chat message
   const [message, setMessage] = useState("");
 
-  //useEffect hook to pull in info from the database (json?)
+  //useEffect hook to pull in info from the database
   useEffect(() => {
     fetch("/api/dog-chat")
       .then((res) => res.json())
@@ -26,14 +26,14 @@ function DogRoom(props) {
       });
   }, []);
 
-  //Returns chat room page
+  //Returns dog chat room page
   return (
     <div id="dog-room">
       <h1 className="greeting">Woof! Welcome to the Dog Chat Room!</h1>
       <div className="room-wrapper">
         <div className="main-room">
           <h2>Dog 🐶 Room</h2>
-          {/* Eventually pushed up chats will go into the p tag (maybe append li instead?)*/}
+          {/* Posted chats will go into the p tag */}
           <p name="chat">{message}</p>
         </div>
         <div className="all-rooms">
@@ -54,16 +54,18 @@ function DogRoom(props) {
       </div>
       {/* Form for user name and message inputs */}
       <div className="form-container">
-        <form method="post">
+        <form action="/dog-chat" method="post">
           <div className="inputs-wrapper">
             <input
               type="text"
               placeholder="Enter username"
+              name="username"
               className="username-field"
             />
             <textarea
               type="text"
               placeholder="Enter message"
+              name="message"
               className="message-field"
             />
             <input type="submit" value="Send" className="button" />
