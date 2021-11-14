@@ -21,8 +21,29 @@ function CatRoom(props) {
           );
         });
         setMessage(chatLog);
+        refreshChat();
       });
   }, []);
+
+  function refreshChat() {
+    setInterval(tick, 10000);
+
+    function tick() {
+      console.log(`refreshing chat`);
+      fetch("/api/main-chat")
+        .then((res) => res.json())
+        .then((homeData) => {
+          let chatLog = homeData.map((item) => {
+            return (
+              <li>
+                {item.username}: {item.message} {item.timestamp}
+              </li>
+            );
+          });
+          setMessage(chatLog);
+        });
+    }
+  }
 
   //Returns chat room page
   return (

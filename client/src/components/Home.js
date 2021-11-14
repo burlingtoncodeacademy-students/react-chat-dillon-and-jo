@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 function Home(props) {
   //Sets the chat message
   const [message, setMessage] = useState("");
-  const [time, setTime] = useState("");
 
   //useEffect hook to pull in info from the database
   useEffect(() => {
@@ -22,12 +21,31 @@ function Home(props) {
           );
         });
         setMessage(chatLog);
+        //begins poll for chat refresh
+        refreshChat();
       });
   }, []);
 
-  function timeStamp() {
-    let time = Math.floor(new Date());
-    return time;
+  //refresh function
+  function refreshChat() {
+    setInterval(tick, 10000);
+
+    function tick() {
+      console.log(`refreshing chat`);
+      //re-runs fetch to refresh chatbox
+      fetch("/api/main-chat")
+        .then((res) => res.json())
+        .then((homeData) => {
+          let chatLog = homeData.map((item) => {
+            return (
+              <li>
+                {item.username}: {item.message} {item.timestamp}
+              </li>
+            );
+          });
+          setMessage(chatLog);
+        });
+    }
   }
 
   //Returns chat room page
