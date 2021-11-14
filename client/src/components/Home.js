@@ -73,7 +73,6 @@ function Home(props) {
             <textarea
               name="message"
               type="text"
-              name="message"
               placeholder="Enter message"
               className="message-field"
             />

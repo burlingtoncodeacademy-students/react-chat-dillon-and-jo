@@ -16,7 +16,7 @@ function DogRoom(props) {
         let chatLog = dogData.map((item) => {
           return (
             <li>
-              {item.username}: {item.message}
+              {item.username}: {item.message} {item.timestamp}
             </li>
           );
         });

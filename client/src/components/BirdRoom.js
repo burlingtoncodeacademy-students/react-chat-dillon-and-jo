@@ -16,7 +16,7 @@ function BirdRoom(props) {
         let chatLog = birdData.map((item) => {
           return (
             <li>
-              {item.username}: {item.message}
+              {item.username}: {item.message} {item.timestamp}
             </li>
           );
         });

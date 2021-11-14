@@ -78,9 +78,15 @@ app.get("/api/cat-chat", async (req, res) => {
 app.post("/dog-chat", async (req, res) => {
   let userObj = req.body;
   req.body.timestamp = timeStamp();
-  let newDogChat = new DogChat(userObj);
-  await newDogChat.save();
-  res.redirect("/dog-room");
+  if (userObj.username === `` || userObj.message === ``) {
+    popup.alert({
+      content: `Please enter a username and a message.`,
+    });
+  } else {
+    let newDogChat = new DogChat(userObj);
+    await newDogChat.save();
+    res.redirect("/dog-room");
+  }
 });
 
 //READ - grabs the dog room chats and posts them on the dog room page
@@ -88,32 +94,6 @@ app.get("/api/dog-chat", async (req, res) => {
   let dogChats = await DogChat.find({});
   res.send(dogChats);
 });
-
-function timeStamp() {
-  let date = new Date();
-  let time = [date.getHours(), date.getMinutes()];
-  let hour = time[0];
-  let amPM;
-  let timeStamp;
-  if (hour > 12) {
-    hour = `${hour - 12}`;
-    amPM = `PM`;
-  } else if (hour === 12) {
-    amPM = `PM`;
-  } else {
-    amPM = `AM`;
-  }
-  let minute = time[1];
-  if (minute < 10) {
-    minute = `0${minute}`;
-  }
-  time = `${hour}:${minute}${amPM}`;
-
-  let stamp = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
-  timeStamp = `(${time} ${stamp})`;
-
-  return timeStamp;
-}
 
 //CREATE - enables user to create main chat room chats
 app.post("/main-chat", async (req, res) => {
@@ -132,6 +112,30 @@ app.get("/api/main-chat", async (req, res) => {
 
 //sets a 10 second timeout on the chat
 setTimeout(() => {}, 10000);
+
+function timeStamp() {
+  let date = new Date();
+  let hour = date.getHours();
+  let amPM;
+  if (hour > 12) {
+    hour = `${hour - 12}`;
+    amPM = `PM`;
+  } else if (hour === 12) {
+    amPM = `PM`;
+  } else {
+    amPM = `AM`;
+  }
+  let minute = date.getMinutes();
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }
+  let time = `${hour}:${minute}${amPM}`;
+
+  let stamp = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
+  let timeStamp = `(${time} ${stamp})`;
+
+  return timeStamp;
+}
 
 //Catch-all error route
 app.get("*", (req, res) => {
