@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 function Home(props) {
   //Sets the chat message
   const [message, setMessage] = useState("");
+  const [time, setTime] = useState("");
 
   //useEffect hook to pull in info from the database
   useEffect(() => {
@@ -16,7 +17,7 @@ function Home(props) {
         let chatLog = homeData.map((item) => {
           return (
             <li>
-              {item.username}: {item.message}
+              {item.username}: {item.message} {item.timestamp}
             </li>
           );
         });
@@ -24,7 +25,12 @@ function Home(props) {
       });
   }, []);
 
-//Returns chat room page
+  function timeStamp() {
+    let time = Math.floor(new Date());
+    return time;
+  }
+
+  //Returns chat room page
   return (
     <div>
       <h1 className="greeting">Welcome to React Chat!</h1>
@@ -76,11 +82,7 @@ function Home(props) {
         </form>
         {/* Refresh button, refreshes the chat */}
         <form method="get" action="api/main-chat">
-          <input
-            name="button"
-            type="button"
-            value="Refresh"
-          />
+          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>
