@@ -10,7 +10,7 @@ function Home(props) {
   //Sets the chat message
   const [message, setMessage] = useState("");
 
-  //useEffect hook to pull in info from the database (json?)
+  //useEffect hook to pull in info from the database
   useEffect(() => {
     fetch("/api/main-chat")
       .then((res) => res.json())
@@ -37,7 +37,7 @@ function Home(props) {
       <div className="room-wrapper">
         <div className="main-room">
           <h2>Main 🚪 Room</h2>
-          {/* Eventually pushed up chats will go into the p tag (maybe append li instead?)*/}
+          {/* Posted chats will go into the p tag */}
           <p name="chat">{message}</p>
         </div>
         <div className="all-rooms">

@@ -23,7 +23,11 @@ const chatSchema = new mongoose.Schema({
   message: { type: String, required: true },
 });
 
+//Main Chat Room model
 const Chat = mongoose.model("Chat", chatSchema);
+
+//Dog Room Model
+const DogChat = mongoose.model("DogChat", chatSchema);
 
 //CREATE - send messages on the home route to the chat box
 app.post("/main-chat", async (req, res) => {
@@ -47,14 +51,14 @@ setTimeout(() => {
 //CREATE - dog room chats
 app.post("/dog-chat", async (req, res) => {
   let userObj = req.body
-  let newDogChat = new Chat(userObj);
+  let newDogChat = new DogChat (userObj);
   await newDogChat.save();
-  res.redirect("/");
+  res.redirect("/dog-room");
 });
 
 //READ - grabs the dog room chats and posts them on the dog room page
 app.get("/api/dog-chat", async (req, res) => {
-  let dogChats = await Chat.find({})
+  let dogChats = await DogChat.find({})
   res.send(dogChats)
 })
 
