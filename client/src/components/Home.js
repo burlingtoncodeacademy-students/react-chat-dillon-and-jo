@@ -36,7 +36,7 @@ function Home(props) {
       <h1 className="greeting">Welcome to React Chat!</h1>
       <div className="room-wrapper">
         <div className="main-room">
-          <h2>Main Room</h2>
+          <h2>Main 🚪 Room</h2>
           {/* Eventually pushed up chats will go into the p tag (maybe append li instead?)*/}
           <p name="chat">{message}</p>
         </div>
@@ -44,15 +44,15 @@ function Home(props) {
           <h2>All Rooms</h2>
           {/* Link redirects to Dog Room page */}
           <Link to="/dog-room" add style={{ textDecoration: "none" }}>
-            <h3>Dog Room</h3>
+            <h3>Dog 🐶 Room</h3>
           </Link>
           {/* Link redirects to Cat Room page */}
           <Link to="/cat-room" add style={{ textDecoration: "none" }}>
-            <h3>Cat Room</h3>
+            <h3>Cat 😸 Room</h3>
           </Link>
           {/* Link redirects to Bird Room page */}
           <Link to="/bird-room" add style={{ textDecoration: "none" }}>
-            <h3>Bird Room</h3>
+            <h3>Bird 🦜 Room</h3>
           </Link>
         </div>
       </div>

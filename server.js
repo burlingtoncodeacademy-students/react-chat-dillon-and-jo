@@ -33,6 +33,7 @@ app.post("/main-chat", async (req, res) => {
   res.redirect("/");
 });
 
+//READ - gets the messages for main chat room and displays them
 app.get("/api/main-chat", async (req, res) => {
   let allChats = await Chat.find({})
   res.send(allChats)
@@ -43,6 +44,20 @@ setTimeout(() => {
   
 }, 10000);
 
+//CREATE - dog room chats
+app.post("/dog-chat", async (req, res) => {
+  let userObj = req.body
+  let newDogChat = new Chat(userObj);
+  await newDogChat.save();
+  res.redirect("/");
+});
+
+//READ - grabs the dog room chats and posts them on the dog room page
+app.get("/api/dog-chat", async (req, res) => {
+  let dogChats = await Chat.find({})
+  res.send(dogChats)
+})
+
 
 
 
@@ -52,22 +67,6 @@ app.get("/cat-room", (req, res) => {});
 
 app.get("/bird-room", (req, res) => {});
 
-app.post("/main-chat", async (req, res) => {
-  console.log(`post to chat`);
-
-  let userObj = req.body;
-
-  let newChat = new Chat(userObj);
-  await newChat.save();
-  res.redirect("/");
-});
-
-let temp;
-
-app.get("/api/main-chat", async (req, res) => {
-  let allChats = await Chat.find({});
-  res.send(allChats);
-});
 
 
 app.listen(port, () => {

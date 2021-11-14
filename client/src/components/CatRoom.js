@@ -6,10 +6,10 @@ function CatRoom(props) {
   //Returns chat room page
   return (
     <div>
-      <h1 className="greeting">Welcome to the Cat Chat Room!</h1>
+      <h1 className="greeting">Meow! Welcome to the Cat Chat Room!</h1>
       <div className="room-wrapper">
         <div className="main-room">
-          <h2>Cat Room</h2>
+          <h2>Cat 😸 Room</h2>
           {/* Eventually pushed up chats will go into the p tag (maybe append li instead?)*/}
           <p>Chats will go here</p>
           <p>Chats will go here</p>
@@ -19,15 +19,15 @@ function CatRoom(props) {
           <h2>All Rooms</h2>
           {/* Link redirects to Main Room page */}
           <Link to="/" add style={{ textDecoration: "none" }}>
-            <h3>Main Room</h3>
+            <h3>Main 🚪 Room</h3>
           </Link>
           {/* Link redirects to Dog Room page */}
           <Link to="/dog-room" add style={{ textDecoration: "none" }}>
-            <h3>Dog Room</h3>
+            <h3>Dog 🐶 Room</h3>
           </Link>
           {/* Link redirects to Bird Room page */}
           <Link to="/bird-room" add style={{ textDecoration: "none" }}>
-            <h3>Bird Room</h3>
+            <h3>Bird 🦜 Room</h3>
           </Link>
         </div>
       </div>
