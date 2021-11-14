@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 const chatSchema = new mongoose.Schema({
   username: { type: String, required: true },
   message: { type: String, required: true },
+  timestamp: { type: String, required: true },
 });
 
 //Main Chat Room model
@@ -46,6 +47,7 @@ const BirdChat = mongoose.model("BirdChat", chatSchema);
 //CREATE - enables user to create bird room chats
 app.post("/bird-chat", async (req, res) => {
   let userObj = req.body;
+  req.body.timestamp = timeStamp();
   let newBirdChat = new BirdChat(userObj);
   await newBirdChat.save();
   res.redirect("/bird-room");
@@ -60,6 +62,7 @@ app.get("/api/bird-chat", async (req, res) => {
 //CREATE - enables user to create cat room chats
 app.post("/cat-chat", async (req, res) => {
   let userObj = req.body;
+  req.body.timestamp = timeStamp();
   let newCatChat = new CatChat(userObj);
   await newCatChat.save();
   res.redirect("/cat-room");
@@ -74,6 +77,7 @@ app.get("/api/cat-chat", async (req, res) => {
 //CREATE - enables user to create dog room chats
 app.post("/dog-chat", async (req, res) => {
   let userObj = req.body;
+  req.body.timestamp = timeStamp();
   let newDogChat = new DogChat(userObj);
   await newDogChat.save();
   res.redirect("/dog-room");
@@ -85,9 +89,36 @@ app.get("/api/dog-chat", async (req, res) => {
   res.send(dogChats);
 });
 
+function timeStamp() {
+  let date = new Date();
+  let time = [date.getHours(), date.getMinutes()];
+  let hour = time[0];
+  let amPM;
+  let timeStamp;
+  if (hour > 12) {
+    hour = `${hour - 12}`;
+    amPM = `PM`;
+  } else if (hour === 12) {
+    amPM = `PM`;
+  } else {
+    amPM = `AM`;
+  }
+  let minute = time[1];
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }
+  time = `${hour}:${minute}${amPM}`;
+
+  let stamp = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
+  timeStamp = `(${time} ${stamp})`;
+
+  return timeStamp;
+}
+
 //CREATE - enables user to create main chat room chats
 app.post("/main-chat", async (req, res) => {
   let userObj = req.body;
+  req.body.timestamp = timeStamp();
   let newChat = new Chat(userObj);
   await newChat.save();
   res.redirect("/");
