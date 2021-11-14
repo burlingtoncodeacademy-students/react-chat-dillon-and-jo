@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 
 //Function for dog room chat page
 function DogRoom(props) {
-  //Sets the chat username
-  const [username, setUserName] = useState("");
   //Sets the chat message
   const [message, setMessage] = useState("");
 
@@ -32,11 +30,13 @@ function DogRoom(props) {
       <h1 className="greeting">Woof! Welcome to the Dog Chat Room!</h1>
       <div className="room-wrapper">
         <div className="main-room">
+          {/* Section where dog room posted chats live */}
           <h2>Dog 🐶 Room</h2>
           {/* Posted chats will go into the p tag */}
           <p name="chat">{message}</p>
         </div>
         <div className="all-rooms">
+          {/* Links to the other chat rooms */}
           <h2>All Rooms</h2>
           {/* Link redirects to Main Room page */}
           <Link to="/" add style={{ textDecoration: "none" }}>
@@ -56,27 +56,27 @@ function DogRoom(props) {
       <div className="form-container">
         <form action="/dog-chat" method="post">
           <div className="inputs-wrapper">
+            {/* Username input */}
             <input
               type="text"
               placeholder="Enter username"
               name="username"
               className="username-field"
             />
+            {/* Message input */}
             <textarea
               type="text"
               placeholder="Enter message"
               name="message"
               className="message-field"
             />
+            {/* Submit input (submits the username + message) */}
             <input type="submit" value="Send" className="button" />
           </div>
         </form>
-        <form method="get" action="api/main-chat">
-          <input
-            name="button"
-            type="button"
-            value="Refresh"
-          />
+        {/* Refresh button, refreshes the chat */}
+        <form method="get" action="api/dog-chat">
+          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>

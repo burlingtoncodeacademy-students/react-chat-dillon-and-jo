@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 
 //Function for home page
 function Home(props) {
-  //Sets the chat username
-  const [username, setUserName] = useState("");
   //Sets the chat message
   const [message, setMessage] = useState("");
 
@@ -32,11 +30,13 @@ function Home(props) {
       <h1 className="greeting">Welcome to React Chat!</h1>
       <div className="room-wrapper">
         <div className="main-room">
+          {/* Section where posted chats live */}
           <h2>Main 🚪 Room</h2>
           {/* Posted chats will go into the p tag */}
           <p name="chat">{message}</p>
         </div>
         <div className="all-rooms">
+          {/* Links to the other chat rooms */}
           <h2>All Rooms</h2>
           {/* Link redirects to Dog Room page */}
           <Link to="/dog-room" add style={{ textDecoration: "none" }}>
@@ -56,6 +56,7 @@ function Home(props) {
       <div className="form-container">
         <form method="post" action="/main-chat">
           <div className="inputs-wrapper">
+            {/* Username input */}
             <input
               name="username"
               type="text"
@@ -63,6 +64,7 @@ function Home(props) {
               placeholder="Enter username"
               className="username-field"
             />
+            {/* Message input */}
             <textarea
               name="message"
               type="text"
@@ -70,9 +72,11 @@ function Home(props) {
               placeholder="Enter message"
               className="message-field"
             />
+            {/* Submit input (submits the username + message) */}
             <input type="submit" value="Send" className="button" />
           </div>
         </form>
+        {/* Refresh button, refreshes the chat */}
         <form method="get" action="api/main-chat">
           <input
             name="button"
