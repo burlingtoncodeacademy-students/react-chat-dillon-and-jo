@@ -16,7 +16,7 @@ function DogRoom(props) {
         let chatLog = dogData.map((item) => {
           return (
             <li>
-              {item.username}: {item.message}
+              {item.username}: {item.message} {item.timestamp}
             </li>
           );
         });
@@ -73,10 +73,6 @@ function DogRoom(props) {
             {/* Submit input (submits the username + message) */}
             <input type="submit" value="Send" className="button" />
           </div>
-        </form>
-        {/* Refresh button, refreshes the chat */}
-        <form method="get" action="api/dog-chat">
-          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>

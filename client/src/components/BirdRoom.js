@@ -16,7 +16,7 @@ function BirdRoom(props) {
         let chatLog = birdData.map((item) => {
           return (
             <li>
-              {item.username}: {item.message}
+              {item.username}: {item.message} {item.timestamp}
             </li>
           );
         });
@@ -73,10 +73,6 @@ function BirdRoom(props) {
             {/* Submit input (submits the username + message) */}
             <input type="submit" value="Send" className="button" />
           </div>
-        </form>
-        {/* Refresh button, refreshes the chat */}
-        <form method="get" action="api/bird-chat">
-          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>

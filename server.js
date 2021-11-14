@@ -89,6 +89,21 @@ app.get("/api/dog-chat", async (req, res) => {
   res.send(dogChats);
 });
 
+//CREATE - enables user to create main chat room chats
+app.post("/main-chat", async (req, res) => {
+  let userObj = req.body;
+  req.body.timestamp = timeStamp();
+  let newChat = new Chat(userObj);
+  await newChat.save();
+  res.redirect("/");
+});
+
+//READ - grabs the main chat room chats and posts them on the main page
+app.get("/api/main-chat", async (req, res) => {
+  let allChats = await Chat.find({});
+  res.send(allChats);
+});
+
 function timeStamp() {
   let date = new Date();
   let time = [date.getHours(), date.getMinutes()];
@@ -114,24 +129,6 @@ function timeStamp() {
 
   return timeStamp;
 }
-
-//CREATE - enables user to create main chat room chats
-app.post("/main-chat", async (req, res) => {
-  let userObj = req.body;
-  req.body.timestamp = timeStamp();
-  let newChat = new Chat(userObj);
-  await newChat.save();
-  res.redirect("/");
-});
-
-//READ - grabs the main chat room chats and posts them on the main page
-app.get("/api/main-chat", async (req, res) => {
-  let allChats = await Chat.find({});
-  res.send(allChats);
-});
-
-//sets a 10 second timeout on the chat
-setTimeout(() => {}, 10000);
 
 //Catch-all error route
 app.get("*", (req, res) => {

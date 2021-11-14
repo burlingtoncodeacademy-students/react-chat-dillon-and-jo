@@ -7,7 +7,13 @@ import { useState, useEffect } from "react";
 function Home(props) {
   //Sets the chat message
   const [message, setMessage] = useState("");
-  const [time, setTime] = useState("");
+  //Sets interval counter state
+  const [intervalUpdater, setIntervalUpdater] = useState(0);
+
+  //Set interval to poll to refresh chats every 10 seconds
+  setInterval(() => {
+    //set update to start counting here
+  }, 10000)
 
   //useEffect hook to pull in info from the database
   useEffect(() => {
@@ -23,12 +29,7 @@ function Home(props) {
         });
         setMessage(chatLog);
       });
-  }, []);
-
-  function timeStamp() {
-    let time = Math.floor(new Date());
-    return time;
-  }
+  }, [intervalUpdater]);
 
   //Returns chat room page
   return (
@@ -79,10 +80,6 @@ function Home(props) {
             {/* Submit input (submits the username + message) */}
             <input type="submit" value="Send" className="button" />
           </div>
-        </form>
-        {/* Refresh button, refreshes the chat */}
-        <form method="get" action="api/main-chat">
-          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>
