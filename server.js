@@ -151,17 +151,23 @@ function timeStamp() {
   let amPM;
   //changes 24 hour time into 12 hour time, sets AM/PM accordingly
   if (hour > 12) {
+    //Subtract 12 to do away with military time
     hour = `${hour - 12}`;
+    //And puts PM on time stamp to denote it is after Noon
     amPM = `PM`;
+    //If the hour equals noon exactly
   } else if (hour === 12) {
+    //Set the am pm variable to PM
     amPM = `PM`;
   } else {
+    //Otherwise set the hour as is to AM
     amPM = `AM`;
   }
   //get Minute item from Date object
   let minute = date.getMinutes();
   //handles '00'-'09' times
   if (minute < 10) {
+    //Have the minute with a 0 in front (i.e. :06)
     minute = `0${minute}`;
   }
   //sets clock

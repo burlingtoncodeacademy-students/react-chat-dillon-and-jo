@@ -10,16 +10,22 @@ function Home(props) {
 
   //useEffect hook to pull in info from the database
   useEffect(() => {
+    //Fetches the posted chat from the server
     fetch("/api/main-chat")
+    //Takes the response and turns it into JSON
       .then((res) => res.json())
+      //Then takes the data
       .then((homeData) => {
+        //Maps over the data and stores it in a variable
         let chatLog = homeData.map((item) => {
+          //Returns an li with username, message, and time stamp
           return (
             <li>
               {item.username}: {item.message} {item.timestamp}
             </li>
           );
         });
+        //Sets the chatLog message variable from state
         setMessage(chatLog);
         //begins poll for chat refresh
         refreshChat();
@@ -97,10 +103,6 @@ function Home(props) {
             {/* Submit input (submits the username + message) */}
             <input type="submit" value="Send" className="button" />
           </div>
-        </form>
-        {/* Refresh button, refreshes the chat */}
-        <form method="get" action="api/main-chat">
-          <input name="button" type="button" value="Refresh" />
         </form>
       </div>
     </div>
