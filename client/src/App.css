@@ -30,11 +30,17 @@ h2 {
 
 li {
   color: rgb(26, 26, 168);
+  list-style: none;
 }
+
 
 h3 {
   color: rgb(26, 26, 168);
   text-decoration: none;
+}
+
+h3:hover {
+  color: rgb(255, 123, 0);
 }
 
 
