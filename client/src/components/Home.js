@@ -60,7 +60,6 @@ function Home(props) {
             <input
               name="username"
               type="text"
-              name="username"
               placeholder="Enter username"
               className="username-field"
             />
@@ -68,7 +67,6 @@ function Home(props) {
             <textarea
               name="message"
               type="text"
-              name="message"
               placeholder="Enter message"
               className="message-field"
             />
