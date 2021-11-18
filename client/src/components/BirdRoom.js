@@ -37,7 +37,7 @@ function BirdRoom(props) {
     setInterval(tick, 10000);
     //tick function to send fetch request
     function tick() {
-      fetch("/api/main-chat")
+      fetch("/api/bird-chat")
         .then((res) => res.json())
         .then((birdData) => {
           let chatLog = birdData.map((item) => {

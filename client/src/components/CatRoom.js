@@ -37,7 +37,7 @@ function CatRoom(props) {
     setInterval(tick, 10000);
     //tick function to send fetch request
     function tick() {
-      fetch("/api/main-chat")
+      fetch("/api/cat-chat")
         .then((res) => res.json())
         .then((catData) => {
           let chatLog = catData.map((item) => {

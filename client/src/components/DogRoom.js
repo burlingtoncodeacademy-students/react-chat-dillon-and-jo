@@ -37,7 +37,7 @@ function DogRoom(props) {
     setInterval(tick, 10000);
     //tick function to send fetch request
     function tick() {
-      fetch("/api/main-chat")
+      fetch("/api/dog-chat")
         .then((res) => res.json())
         .then((dogData) => {
           let chatLog = dogData.map((item) => {

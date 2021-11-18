@@ -182,7 +182,7 @@ function timeStamp() {
 
 //Catch-all error route
 app.get("*", (req, res) => {
-  res.send("Uh-oh! Looks like what you're trying to find isn't here!");
+  res.sendFile(path.resolve(staticDir + "/index.html"));
 });
 
 //Sets up to locally listen on port
