@@ -1,38 +1,104 @@
-.App {
-  text-align: center;
+/* General CSS */
+body {
+  font-family: 'Noto Sans', sans-serif;
+  color: white;
+  background-color: rgb(26, 26, 168);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Chat Rooms General CSS */
+
+.greeting {
+  display: flex;
+  justify-content: center;
+  font-family: 'Lemon', cursive;
+  font-size: 40px;
+  margin-top: 40px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.room-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h2 {
+  text-decoration: underline;
+  font-size: 25px;
+  margin-top: -2px;
+  color: rgb(26, 26, 168);
+}
+
+li {
+  color: rgb(26, 26, 168);
+  list-style: none;
+}
+
+
+h3 {
+  color: rgb(26, 26, 168);
+  text-decoration: none;
+}
+
+h3:hover {
+  color: rgb(255, 123, 0);
+}
+
+
+.main-room, .all-rooms {
+  border: 4px solid white;
+  border-radius: 5px;
+  padding: 10px 100px;
+  margin-top: 40px;
+  background-color: white;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.inputs-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-content: space-around;
+}
+
+.username-field {
+  margin-right: 5px;
+  border: 2px solid white;
+  background-color: white;
+  color: rgb(26, 26, 168);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: 'Noto Sans', sans-serif;
+  margin-bottom: 10px;
+}
+
+.message-field {
+  margin-right: 5px;
+  border: 2px solid white;
+  background-color: white;
+  color: rgb(26, 26, 168);
+  height: 75px;
+  width: 200px;
+  border-radius: 5px;
+  font-family: 'Noto Sans', sans-serif;
+  margin-bottom: 10px;
+}
+
+.button {
+  margin: 0 5px;
+  background-color: white;
+  color: rgb(26, 26, 168);
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 16px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: rgb(26, 26, 168);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  cursor: pointer;
 }
